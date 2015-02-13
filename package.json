@@ -1,0 +1,34 @@
+{
+  "name": "gulp-her-package",
+  "version": "0.0.1",
+  "description": "package css and js files via pack rules",
+  "author": {
+    "name": "huangyi",
+    "email": "ustbhuangyi@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/ustbhuangyi/gulp-her-package/issues"
+  },
+  "engines": {
+    "node": ">=0.9"
+  },
+  "homepage": "https://github.com/ustbhuangyi/gulp-her-package/",
+  "keywords": [
+    "gulpplugin",
+    "her",
+    "package"
+  ],
+  "licenses": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ustbhuangyi/gulp-her-package.git"
+  },
+  "dependencies": {
+    "gulp-util": ">=3.0.0 <4.0.0-0",
+    "through2": ">=0.6.1 <1.0.0-0",
+    "minimatch": "^2.0.1",
+    "vinyl-fs": "^0.3.0",
+    "vinyl": "^0.4.0"
+  }
+}
