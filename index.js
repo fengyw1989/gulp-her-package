@@ -21,6 +21,8 @@ module.exports = function (ret, opt) {
 
   var pkgMap = {};
 
+  var useHash = her.config.get('useHash');
+
   //generate the pkg map
   pkgConf.forEach(function (conf, index) {
     var pid = 'p' + index;
@@ -72,8 +74,8 @@ module.exports = function (ret, opt) {
         file.packed = true;
         file.requires.forEach(function (id) {
           var dep = ret.ids[id];
-
-          pack(dep);
+          if (dep)
+            pack(dep);
         });
         var stack = pkg.pkgs[index] || [];
         stack.push(file);
@@ -150,11 +152,12 @@ module.exports = function (ret, opt) {
       }
 
       var dest = her.config.get('dest');
+      pkg.file.path = pkg.file.getPath(useHash);
       writeFile(pkg.file, dest);
 
       var res = ret.map.pkg[hashId] = {
-        src: pkg.file.getUrl(),
-        type: pkg.file.ext.replace(/^\./, '')
+        src: pkg.file.getUrl(useHash),
+        type: pkg.file.rExt.replace(/^\./, '')
       };
 
       res.defines = defines;
