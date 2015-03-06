@@ -6,12 +6,8 @@
 'use strict';
 
 var gutil = require('gulp-util');
-var through = require('through2');
 var minimatch = require('minimatch');
-//var vfs = require('vinyl-fs');
 var File = require('vinyl');
-
-var pluginName = 'gulp-her-package';
 
 module.exports = function (ret, opt) {
 
@@ -46,6 +42,8 @@ module.exports = function (ret, opt) {
         file: file,
         pkgs: []
       }
+    }else{
+      gutil.log('invalid pack config');
     }
   });
 
@@ -147,10 +145,6 @@ module.exports = function (ret, opt) {
         content += "\n" + ".css_" + hashId + "{height:88px}\n";
         pkg.file.contents = new Buffer(content);
       }
-
-      //var dest = her.config.get('dest');
-      //pkg.file.path = pkg.file.getPath(useHash);
-      //writeFile(pkg.file, dest);
 
       var res = ret.map.pkg[hashId] = {
         src: pkg.file.getUrl(useHash, useDomain),
