@@ -8,7 +8,7 @@
 var gutil = require('gulp-util');
 var through = require('through2');
 var minimatch = require('minimatch');
-var vfs = require('vinyl-fs');
+//var vfs = require('vinyl-fs');
 var File = require('vinyl');
 
 var pluginName = 'gulp-her-package';
@@ -22,6 +22,7 @@ module.exports = function (ret, opt) {
   var pkgMap = {};
 
   var useHash = her.config.get('useHash');
+  var useDomain = her.config.get('useDomain');
 
   //generate the pkg map
   pkgConf.forEach(function (conf, index) {
@@ -85,12 +86,6 @@ module.exports = function (ret, opt) {
     });
   }
 
-  function writeFile(file, dest) {
-    var stream = through.obj();
-    stream.write(file);
-    stream.pipe(vfs.dest(dest));
-  }
-
   //walk
   her.util.map(ret.ids, function (id, file) {
     pack(file);
@@ -131,6 +126,8 @@ module.exports = function (ret, opt) {
     });
     if (defines.length) {
       pkg.file.contents = new Buffer(content);
+      ret.pkg[pkg.file.id] = pkg.file;
+
       var deps = [];
       requires.forEach(function (id) {
         if (!requireMap[id]) {
@@ -147,16 +144,16 @@ module.exports = function (ret, opt) {
       });
       var hashId = pkg.file.getHash();
       if (pkg.file.isCssLike) {
-        content += "\n" + ".css_" + hashId + "{height:88px}";
+        content += "\n" + ".css_" + hashId + "{height:88px}\n";
         pkg.file.contents = new Buffer(content);
       }
 
-      var dest = her.config.get('dest');
-      pkg.file.path = pkg.file.getPath(useHash);
-      writeFile(pkg.file, dest);
+      //var dest = her.config.get('dest');
+      //pkg.file.path = pkg.file.getPath(useHash);
+      //writeFile(pkg.file, dest);
 
       var res = ret.map.pkg[hashId] = {
-        src: pkg.file.getUrl(useHash),
+        src: pkg.file.getUrl(useHash, useDomain),
         type: pkg.file.rExt.replace(/^\./, '')
       };
 
