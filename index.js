@@ -43,7 +43,7 @@ module.exports = function (ret, opt) {
         pkgs: []
       }
     }else{
-      gutil.log('invalid pack config');
+      gutil.log('warning: invalid pack config');
     }
   });
 
