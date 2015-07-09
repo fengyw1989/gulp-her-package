@@ -146,7 +146,7 @@ module.exports = function (ret, opt) {
         pkg.file.contents = new Buffer(content);
       }
 
-      var res = ret.map.pkg[hashId] = {
+      var res = ret.map.her[hashId] = {
         src: pkg.file.getUrl(useHash, useDomain),
         type: pkg.file.rExt.replace(/^\./, '')
       };
