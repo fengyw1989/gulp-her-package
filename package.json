@@ -1,6 +1,6 @@
 {
   "name": "gulp-her-package",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "package css and js files via pack rules",
   "author": {
     "name": "huangyi",
